@@ -18,6 +18,8 @@ class CampaignGetDirectController extends AbstractController
 
 		try
 		{
+			
+			
 			$campaign = $campaignsService->getCampaign($campaignId);
 
 			return new JsonResponse([

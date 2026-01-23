@@ -7,5 +7,6 @@ class SendEmailMessage
 {
 	public function __construct(public string $email)
 	{
+		$a = 1;
 	}
 }
