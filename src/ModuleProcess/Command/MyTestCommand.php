@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
+use App\Message\TestJobMessageM;
 
 #[AsCommand(name: 'app:test-command', description: 'Add a short description for your command')]
 class MyTestCommand extends Command
@@ -41,11 +42,21 @@ class MyTestCommand extends Command
 
 		// Отправляем сообщение в очередь
 		$jobId = 123; // можно заменить на реальное значение
-		$this->bus->dispatch(new TestJobMessage($jobId));
+		//$this->bus->dispatch(new TestJobMessage($jobId));
+		
+		$this->bus->dispatch(new TestJobMessageM(
+				jobId: 123,
+				payload: [
+						'email' => 'test@example.com',
+						'attempt' => 1,
+				]
+				));
 
 		// Этот код можно оставить или убрать
+		/*
 		$Test = new Test2($output);
 		$Test->do_it();
+		*/
 
 		$io = new SymfonyStyle($input, $output);
 		$arg1 = $input->getArgument('arg1');
