@@ -46,4 +46,10 @@ services:
         arguments:
             $projectDir: '%kernel.project_dir%'
         tags:
-            - { name: 'console.command' }            
+            - { name: 'console.command' }
+                        
+#    App\ModuleProcess\Command\MyScheduleWorkerCommand:
+#        arguments:
+#            $projectDir: '%kernel.project_dir%'
+#        tags:
+#            - { name: 'console.command' }
