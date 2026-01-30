@@ -3,8 +3,10 @@
 namespace App\ModuleProcess\Command;
 
 use Cron\CronExpression;
-use App\Message\SimpleMessage;
+//use App\Message\SimpleMessage;
 //use Doctrine\DBAL\Connection;
+
+
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,6 +15,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
+use App\ModuleProcess\Aion\Test2;
+use App\Message\TestJobMessageM;
 
 #[AsCommand(name: 'app:schedule:worker', description: 'Add a short description for your command')]
 class MyScheduleWorkerCommand extends Command
@@ -26,14 +30,18 @@ class MyScheduleWorkerCommand extends Command
 		$now = new \DateTimeImmutable();
 
 		/*
-		 $jobs = $this->db->fetchAllAssociative("
+		$jobs = $this->db->fetchAllAssociative("
 		 SELECT id, cron_expr, payload
 		 FROM scheduled_jobs
 		 WHERE active = 1
 		 ");
-		 */
+		*/ 
+		
+		$Test = new Test2($output);
+		$jobs = $Test->get_schedulle_jobs();
 
-		$jobs = [
+		
+		$jobs_ = [
 				[
 						'id' => 1,
 						'cron_expr' => '* * * * *'
@@ -52,6 +60,11 @@ class MyScheduleWorkerCommand extends Command
 			if ($cron->isDue($now))
 			{
 				//$this->bus->dispatch(new SimpleMessage($job['payload']));
+				
+				$this->bus->dispatch(new TestJobMessageM(
+						jobId: $job['id'],
+						payload: ['payload' => $job['payload']]
+						));
 
 				$output->writeln("Queued job {$job['id']}");
 			}

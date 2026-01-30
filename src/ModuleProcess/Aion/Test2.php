@@ -58,5 +58,40 @@ class Test2
 
         //
     }
+    
+    function get_schedulle_jobs()
+    {
+    	
+    	$db_servername = $_ENV['DB_HOST1'];
+    	$db_username = $_ENV['DB_USER1'];
+    	$db_password = $_ENV['DB_PASSWORD1'];
+    	$db_name = $_ENV['DB_NAME1'];
+    	$dbPort = $_ENV['DB_PORT1'];
+    	
+    	$conn = new \PDO("pgsql:host=$db_servername;port=$dbPort;dbname=$db_name", $db_username, $db_password);
+    	$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    	$conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+    	
+    	$this->conn = $conn;
+    	
+
+    	
+    	$sqlstr = sprintf('
+                    SELECT id, cron_expr, payload
+		             FROM scheduled_jobs
+		            WHERE active = true
+			');
+    	
+    	
+    	
+    	$stmt = $this->conn->prepare($sqlstr);
+    	$stmt->execute();
+    	$rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    	
+    	
+    	return $rows;
+    	
+    	//
+    }
 
 }
