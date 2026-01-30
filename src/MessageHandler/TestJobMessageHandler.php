@@ -19,6 +19,7 @@ class TestJobMessageHandler
 	public function __construct(private ProcessOrchestrator $orchestrator)
 	{
 	}
+	/*
 	public function __invoke(TestJobMessageM $message): void
 	{
 		// Основные данные
@@ -35,5 +36,21 @@ class TestJobMessageHandler
 		]);
 
 		// Здесь дальше — бизнес-логика
+	}
+	*/
+	
+	public function __invoke(TestJobMessageM $message): void
+	{
+		$jobId = $message->jobId;
+		/*
+		$this->orchestrator->handleStep(
+				$message->processId,
+				$message->step
+				);
+		*/
+		$this->orchestrator->handleStep(
+				'1', //$message->processId,
+				'qq'/*$message->step*/
+				);
 	}
 }
