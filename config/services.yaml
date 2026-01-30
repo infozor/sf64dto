@@ -53,3 +53,7 @@ services:
 #            $projectDir: '%kernel.project_dir%'
 #        tags:
 #            - { name: 'console.command' }
+
+   # Явно (не обязательно, но наглядно)
+    App\ModuleProcess\Orchestrator\ProcessOrchestrator:
+       public: false
