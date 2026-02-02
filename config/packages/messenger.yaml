@@ -17,7 +17,7 @@ framework:
           App\Message\SendEmailMessage: async    
           App\Message\TestJobMessage: async
           App\Message\TestJobMessageM: async
-
+          App\Message\ProcessStepMessage: async
 # when@test:
 #    framework:
 #        messenger:

@@ -41,16 +41,17 @@ class TestJobMessageHandler
 	
 	public function __invoke(TestJobMessageM $message): void
 	{
-		$jobId = $message->jobId;
-		/*
+		//$jobId = $message->jobId;
+		
 		$this->orchestrator->handleStep(
 				$message->processId,
 				$message->step
 				);
-		*/
+		/*
 		$this->orchestrator->handleStep(
-				'1', //$message->processId,
-				'qq'/*$message->step*/
+				$message->processId,
+				$message->payload
 				);
+		*/		
 	}
 }
